@@ -6,6 +6,45 @@
 </head>
 <body>
 
+{% extends "home/loggedin.html" %}
+
+{% block content %}
+    {{ block.super }}
+    <div class="container-fluid">
+        <div class="jumbotron col-lg-6 col-lg-offset-3">
+
+            <form class="col-lg-6 col-lg-offset-3" method="post">
+                {% csrf_token %}
+                {% for field in userform %}
+                    <div class="input-group">
+                        <span class="input-group-addon">{{ field.label }}</span>
+                        {{ field }}
+                    </div>
+                    <br>
+                {% endfor %}
+
+                {% for field in clientform %}
+                   <div class="input-group">
+                        <span class="input-group-addon">{{ field.label }}</span>
+                        {{ field }}
+                        {% if field.errors %}
+                            {{ field.errors.as_text }}
+                        {% endif %}
+                    </div>
+                    <br>
+                {% endfor %}
+
+                <button type="button" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-primary ">Submit</button>
+            </form>
+
+        </div>
+​    </div>
+{% endblock %}
+
+
+
+
 
 
 </body>

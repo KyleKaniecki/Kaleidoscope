@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 class Client(models.Model):
 
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-
     address = models.CharField(max_length=40,blank=True,null=True)
     city = models.CharField(max_length=30,blank=True, null=True)
     state=models.CharField(max_length=20,blank=True,null=True)
