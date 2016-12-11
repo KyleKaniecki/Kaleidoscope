@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Message</title>
+</head>
+
+<style>
+
+</style>
+
+{% extends "home/loggedin.html" %}
+
+    {% block content %}
+
+        <div class="container-fluid">
+            <div class="jumbotron col-lg-6 col-lg-offset-3">
+
+
+
+                {% for field in form %}
+                    <div class="input-group">
+
+                        <span class="input-group-addon">{{ field.label }}</span>{{ field }}
+
+                    </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+
+
+    {% endblock %}
+
+</html>

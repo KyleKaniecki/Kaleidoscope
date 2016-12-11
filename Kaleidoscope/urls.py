@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/',view=Login.as_view(),name="Login"),
     url(r'^loggedin/', view=CheckUser.as_view(), name="Loggedin"),
-    url(r'^logout/',view=LogOut.as_view(),name="Logout")
+    url(r'^logout/',view=LogOut.as_view(),name="Logout"),
+    url(r'^', include('messaging.urls'))
 ]
