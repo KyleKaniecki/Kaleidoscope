@@ -22,10 +22,10 @@ from accounts.views import Login,CheckUser, LogOut
 
 urlpatterns = [
     url(r'^$',view= Home.as_view(), name="HomePage"),
-    url(r'^accounts/',include('accounts.urls')),
+    url(r'^account/',include('accounts.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^login/',view=Login.as_view(),name="Login"),
-    url(r'^loggedin/', view=CheckUser.as_view(), name="Loggedin"),
-    url(r'^logout/',view=LogOut.as_view(),name="Logout"),
-    url(r'^', include('messaging.urls'))
+    url(r'^login/$',view=Login.as_view(),name="Login"),
+    url(r'^loggedin/$', view=CheckUser.as_view(), name="Loggedin"),
+    url(r'^logout/$',view=LogOut.as_view(),name="Logout"),
+    url(r'^messaging/', include('messaging.urls'))
 ]

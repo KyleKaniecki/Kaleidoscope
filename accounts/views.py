@@ -5,7 +5,7 @@ from django.views.generic import CreateView
 
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import UserRegistrationForm, ClientRegistrationForm, ClientUpdateForm, LoginForm
+from .forms import UserRegistrationForm, ClientRegistrationForm, ClientUpdateForm, UserUpdateForm,LoginForm
 
 from .models import Client
 
@@ -17,7 +17,7 @@ class Login(View):
 
     def get(self,request):
         form = LoginForm(None)
-        return render(request, "accounts/profile/login.html", {"form": form})
+        return render(request, "accounts/client/login.html", {"form": form})
 
     def post(self,request):
         form = LoginForm(request.POST)
@@ -27,13 +27,19 @@ class Login(View):
             login(request, user)
             return redirect("/loggedin")
 
-        return render(request, "accounts/profile/login.html", {"form": form})
+        return render(request, "accounts/client/login.html", {"form": form})
 
 class LogOut(View):
 
     def get(self,request):
-        logout(request)
+        logout(request.user)
         return redirect("/")
+
+class Dashboard(View):
+
+    def get(self,request):
+
+        return render(request,"accounts/admin/dashboard.html")
 
 class CheckUser(View):
 
@@ -64,21 +70,21 @@ def create_client(request):
                                                                             "clientform":clientform,
                                                                             "title":title})
 
-class UpdateUser(View):
+class UpdateClient(View):
 
     title = "Update Profile"
 
     def get(self,request):
-        userform = UserRegistrationForm(None,instance=request.user)
-        clientform = ClientRegistrationForm(None,instance=Client.objects.get(user=request.user))
+        userform = UserUpdateForm(None,instance=request.user)
+        clientform = ClientUpdateForm(None,instance=Client.objects.get(user=request.user))
 
-        return render(request, "accounts/profile/update.html", context={"userform": userform,
+        return render(request, "accounts/client/update.html", context={"userform": userform,
                                                                         "clientform": clientform,
                                                                         "title": self.title})
 
     def post(self,request):
-        userform = UserRegistrationForm(request.POST, instance=request.user)
-        clientform = ClientRegistrationForm(request.POST, instance=Client.objects.get(user=request.user))
+        userform = UserUpdateForm(request.POST, instance=request.user)
+        clientform = ClientUpdateForm(request.POST, instance=Client.objects.get(user=request.user))
 
         if clientform.is_valid() and userform.is_valid():
             client = clientform.save(commit=False)
@@ -87,7 +93,7 @@ class UpdateUser(View):
             client.save()
             return redirect("/loggedin/")
 
-        return render(request, "accounts/profile/update.html", context={"userform": userform,
+        return render(request, "accounts/client/update.html", context={"userform": userform,
                                                                         "clientform": clientform,
                                                                         "title": self.title})
 

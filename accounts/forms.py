@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate
 
 from .models import Client
 
+
+#-------------------User Forms--------------------------
 class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
@@ -18,6 +20,21 @@ class UserRegistrationForm(forms.ModelForm):
             'last_name'
         ]
 
+class UserUpdateForm(forms.ModelForm):
+
+    class Meta:
+
+        model = User
+
+        fields = [
+            'username',
+            'email',
+            'first_name',
+            'last_name'
+        ]
+
+#-------------------Client Forms--------------------------
+
 
 class ClientRegistrationForm(forms.ModelForm):
 
@@ -31,15 +48,20 @@ class ClientRegistrationForm(forms.ModelForm):
         ]
 
 
-class ClientUpdateForm(forms.Form):
+class ClientUpdateForm(forms.ModelForm):
 
-    username = forms.CharField()
-    email = forms.CharField()
-    address = forms.CharField()
-    city = forms.CharField()
-    state = forms.CharField()
-    zip_code = forms.IntegerField()
+    class Meta:
+        model = Client
 
+        fields = [
+            'address',
+            'city',
+            'state',
+            'zip_code'
+        ]
+
+
+#-------------------Login Forms--------------------------
 
 class LoginForm(forms.ModelForm):
     class Meta:
@@ -54,7 +76,6 @@ class LoginForm(forms.ModelForm):
         self.fields['password'].widget = forms.PasswordInput()
 
     def is_valid(self):
-        print(self.data)
         user = authenticate(username=self.data['username'],password=self.data['password'])
         if user is not None:
             return True
