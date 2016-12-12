@@ -35,17 +35,45 @@
 
 
                     },
+                    eventClick: function(calEvent, jsEvent, view) {
+
+                        var body = $('#EventDetailBody');
+                        body.html("Client: " + calEvent.title + "<br>" + "Comments: " + calEvent.comments);
+
+                        $('#EventDetailModal').modal();
+
+
+                    },
                     events:[
-                        {
-                            title:"TEST",
-                            id:5,
-                            start:'2016-12-10T12:00:00',
-                            stick:true
-                        }
 
                     ]
 
                 });
+
+                {% for appt in  appointments %}
+
+                    var start = '{{ appt.start|date:'c' }}'.substr(0,19);
+                    var hrs = '{{ appt.duration|date:'c' }}'.substr(0,2);
+                    var mins = '{{ appt.duration|date:'c' }}'.substr(3,2);
+                    var end = moment(start).add(parseInt(hrs),'hours');
+                    end = moment(end).add(parseInt(mins),'minutes');
+                    //alert(end);
+
+
+                    cal.fullCalendar('renderEvent',
+                                    {
+                                        title: '{{ appt.client.user.first_name }} {{ appt.client.user.last_name }}',
+                                        id: {{ appt.id }},
+                                        start:'{{ appt.start|date:"c" }}'.substr(0,19),
+                                        end:end,
+                                        url: '',
+                                        comments:'{{ appt.comments }}',
+                                        stick:true
+                                    },
+                                    true
+                    );
+
+                {% endfor %}
 
             });
     </script>
@@ -81,15 +109,68 @@
             <h4 class="modal-title" id="ModalTitle">Create Event</h4>
           </div>
           <div class="modal-body">
-            <p>One fine body&hellip;</p>
+            <form id="EventCreateForm" method="post">
+            {% csrf_token %}
+                {% for field in form %}
+                    <div class="input-group">
+                        <span class="input-group-addon">{{ field.label }}</span>{{ field }}
+                    </div>
+                {% endfor %}
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary" form="EventCreateForm">Save changes</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="EventDetailModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="ModalTitle">Event Details</h4>
+          </div>
+          <div class="modal-body" id="EventDetailBody">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+            <button type="button" class="btn btn-danger" form="EventDetailForm">Delete</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script>
+        function update_message(){
+
+            $.ajax({
+                url : {% url "Dashboard" %}, // the endpoint
+                type : "POST", // http method
+                data : { the_post : $('#MessageForm').val(),type : "" }, // data sent with the post request
+
+                // handle a successful response
+                success : function(json) {
+                    $('#MessageForm').val(''); // remove the value from the input
+                    console.log(json); // log the returned json to the console
+                    console.log("success"); // another sanity check
+                },
+
+                // handle a non-successful response
+                error : function(xhr,errmsg,err) {
+                    $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                }
+            });
+
+        }
+
+    </script>
 
 {% endblock %}
 </html>

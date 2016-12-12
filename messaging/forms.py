@@ -9,15 +9,15 @@ class MessageCreateForm(forms.ModelForm):
         model = Message
 
         fields = [
-            'Recipient',
-            'Subject',
-            'Content'
+            'recipient',
+            'subject',
+            'body'
         ]
 
     def __init__(self,*args,**kwargs):
         super(MessageCreateForm, self).__init__(*args,**kwargs)
 
-        self.fields['Recipient'] = forms.ModelChoiceField(queryset=User.objects.all(),widget=forms.Select(attrs={'class':"form-control"}))
-        self.fields['Subject'].widget = forms.TextInput(attrs={"class":"form-control"})
-        self.fields['Content'].widget = forms.Textarea(attrs={"class": "form-control"})
+        self.fields['recipient'] = forms.ModelChoiceField(queryset=User.objects.all(),widget=forms.Select(attrs={'class':"form-control"}))
+        self.fields['subject'].widget = forms.TextInput(attrs={"class":"form-control"})
+        self.fields['body'].widget = forms.Textarea(attrs={"class": "form-control","style":"resize:none"})
 

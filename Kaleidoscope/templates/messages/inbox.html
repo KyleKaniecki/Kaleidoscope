@@ -70,7 +70,7 @@
         <hr>
         <div class="row">
             <div class="col-sm-3 col-md-2">
-                <a href="{% url "CreateMessage" %}" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> Compose</a>
+                <button class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#MessageCreateModal"><i class="glyphicon glyphicon-edit"></i> Compose</button>
                 <hr>
                 <ul class="nav nav-pills nav-stacked">
                     <li class="active"><a href="#"><span class="badge pull-right">32</span> Inbox </a>
@@ -90,17 +90,22 @@
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="home">
                         <div class="list-group">
-                            <a href="#" class="list-group-item">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox">
-                                    </label>
-                                </div>
-                                <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                                    display: inline-block;">Mark Otto</span> <span class="">Nice work on the lastest version</span>
-                                <span class="text-muted" style="font-size: 11px;">- More content here</span> <span class="badge">12:10 AM</span> <span class="pull-right"><span class="glyphicon glyphicon-paperclip">
-                                    </span></span>
-                            </a>
+                            {% for message in messages %}
+
+                                <a href='{% url 'MessageDetails' pk=message.id %}' class="list-group-item">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox">
+                                        </label>
+                                    </div>
+                                    <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
+                                        display: inline-block;">{{ message.sender }}</span> <span class="">{{ message.subject }}</span>
+                                    <span class="text-muted" style="font-size: 11px;">- more...</span> <span class="badge">{{ message.timestamp }}</span> <span class="pull-right"><span class="glyphicon glyphicon-paperclip">
+                                        </span></span>
+                                </a>
+
+                            {% endfor %}
+
                         </div>
                     </div>
                     <div class="tab-pane fade in" id="profile">
@@ -111,7 +116,6 @@
                         </div>
                     </div>
                     <div class="tab-pane fade in" id="messages">
-                        ...
                     </div>
 
                 </div>
@@ -120,7 +124,54 @@
         </div>
     </div>
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="MessageCreateModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="ModalTitle">Create Message</h4>
+          </div>
+          <div class="modal-body">
+            <form id="MessageForm" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="input-group">
+                        <span class="input-group-addon" style="width: 100px">{{ field.label }}</span>{{ field }}
+                    </div>
+                {% endfor %}
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" form="MessageForm">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script>
+        function create_message() {
+            console.log("create post is working!"); // sanity check
+            $.ajax({
+                url : {% url "Inbox" %}, // the endpoint
+                type : "POST", // http method
+                data : { the_post : $('#MessageForm').val() }, // data sent with the post request
+
+                // handle a successful response
+                success : function(json) {
+                    $('#MessageForm').val(''); // remove the value from the input
+                    console.log(json); // log the returned json to the console
+                    console.log("success"); // another sanity check
+                },
+
+                // handle a non-successful response
+                error : function(xhr,errmsg,err) {
+                    $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                }
+            });
+        }
+    </script>
+
 {% endblock %}
-
-
-</html>

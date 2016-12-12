@@ -7,7 +7,12 @@ from django.contrib.auth import authenticate, login, logout
 
 from .forms import UserRegistrationForm, ClientRegistrationForm, ClientUpdateForm, UserUpdateForm,LoginForm
 
-from .models import Client
+from messaging.forms import MessageCreateForm
+
+from .models import Client, Admin
+
+from appointments.models import Appointment
+from appointments.forms import AppointmentCreateForm
 
 from django.contrib.auth.models import User
 
@@ -39,7 +44,30 @@ class Dashboard(View):
 
     def get(self,request):
 
-        return render(request,"accounts/admin/dashboard.html")
+        form = AppointmentCreateForm()
+
+        appointments = Appointment.objects.filter(admin = Admin.objects.get(user=request.user))
+
+        return render(request,"accounts/admin/dashboard.html",{"form":form,
+                                                               "appointments":appointments})
+
+    def post(self,request):
+        form = AppointmentCreateForm(request.POST)
+
+        if form.is_valid():
+            appt = form.save(commit=False)
+            appt.admin = Admin.objects.get(user = request.user)
+            appt.save()
+
+        form = AppointmentCreateForm(None)
+
+        appointments = Appointment.objects.filter(admin=Admin.objects.get(user=request.user))
+
+
+        return render(request,"accounts/admin/dashboard.html",context={"form":form,
+                                                                       "appointments":appointments})
+
+
 
 class CheckUser(View):
 
