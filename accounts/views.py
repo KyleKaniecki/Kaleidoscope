@@ -37,7 +37,7 @@ class Login(View):
 class LogOut(View):
 
     def get(self,request):
-        logout(request.user)
+        logout(request)
         return redirect("/")
 
 class Dashboard(View):
