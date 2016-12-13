@@ -72,10 +72,13 @@ class Dashboard(View):
 class CheckUser(View):
 
     def get(self,request):
-        return render(request,"home/loggedin.html")
+        if Admin.objects.filter(user=request.user):
+            return render(request, "accounts/admin/loggedin.html")
+        else:
+            return render(request, "accounts/client/loggedin.html")
 
     def post(self,request):
-        return render(request, "home/loggedin.html")
+        return render(request, "accounts/admin/loggedin.html")
 
 def create_client(request):
     title = "Register"

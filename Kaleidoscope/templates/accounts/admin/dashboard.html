@@ -8,7 +8,7 @@
 
 
 
-{% extends "home/loggedin.html" %}
+{% extends "accounts/admin/loggedin.html" %}
 
 {% block content %}
 
@@ -67,8 +67,7 @@
                                         start:'{{ appt.start|date:"c" }}'.substr(0,19),
                                         end:end,
                                         url: '',
-                                        comments:'{{ appt.comments }}',
-                                        stick:true
+                                        comments:'{{ appt.comments }}'
                                     },
                                     true
                     );
@@ -81,21 +80,17 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="panel col-lg-4 col-lg-offset-1">
-                <div class="panel-heading"><h3 class="panel-title">Example</h3> </div>
+            <div class="panel col-lg-2 col-lg-offset-1">
+                <div class="panel-heading"><h3 class="panel-title"><b>Control Panel</b></h3> </div>
                 <div class="panel-body">
-                    Example Panel Content
+                    <div class="btn-group-vertical">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#EventCreateModal">Create Appointment</button>
+                        <a class="btn btn-primary">Create New Listing</a>
+                    </div>
                 </div>
             </div>
-            <div class=" panel col-lg-4 col-lg-offset-2">
-                <div class="panel-heading"><h3 class="panel-title">Example</h3> </div>
-                <div class="panel-body">
-                    Example Panel Content
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="container-fluid col-lg-6 col-lg-offset-3">
+
+            <div class="col-lg-8">
                 <div id="calendar"></div>
             </div>
         </div>
