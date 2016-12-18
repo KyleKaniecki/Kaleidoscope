@@ -11,6 +11,8 @@ from .models import Client, Admin
 from appointments.models import Appointment
 from appointments.forms import AppointmentCreateForm
 
+from listings.models import Listing
+
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -72,13 +74,15 @@ class Dashboard(View):
 class CheckUser(View):
 
     def get(self,request):
+        listings = Listing.objects.all()
         if Admin.objects.filter(user=request.user):
-            return render(request, "accounts/admin/loggedin.html")
+            return render(request, "accounts/admin/loggedin.html",context={"listings":listings})
         else:
-            return render(request, "accounts/client/loggedin.html")
+            return render(request, "accounts/client/loggedin.html",context={"listings":listings})
 
     def post(self,request):
-        return render(request, "accounts/admin/loggedin.html")
+        listings = Listing.objects.all()
+        return render(request, "accounts/admin/loggedin.html",context={"listings":listings})
 
 def create_client(request):
     title = "Register"

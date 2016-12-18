@@ -128,6 +128,6 @@ STATICFILES_DIRS=[
 ]
 STATIC_URL = '/Kaleidoscope/static/'
 
-MEDIA_ROOT=os.path.join(BASE_DIR,'static/media/')
+MEDIA_ROOT=os.path.join(BASE_DIR,'Kaleidoscope/static/media/')
 MEDIA_URL= STATIC_URL + '/media/'
 

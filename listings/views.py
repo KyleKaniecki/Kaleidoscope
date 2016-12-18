@@ -17,13 +17,13 @@ class ListingCreate(View):
 
 
     def post(self,request):
-        form = ListingCreateForm(request.POST)
+        form = ListingCreateForm(request.POST,request.FILES)
 
         if form.is_valid():
             listing = form.save(commit=False)
             listing.author = Admin.objects.get(user=request.user)
             listing.save()
-            return redirect("/accounts/dashboard")
+            return redirect("/account/dashboard")
 
         form = ListingCreateForm(None)
 

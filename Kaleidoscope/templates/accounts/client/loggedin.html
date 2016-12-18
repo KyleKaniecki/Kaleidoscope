@@ -70,65 +70,16 @@
 {% block packery %}
 
         <div class="grid col-lg-offset-1" id="masonrygrid">
-            <div class="grid-sizer"></div>
-            <div class="grid-item">
-                <div class="thumbnail">
-                    <img src="{% static "media/Bullshit.png" %}">
-                    <div class="caption">
-                        This is a test
+            {% for listing in listings %}
+                <div class="grid-item">
+                    <div class="thumbnail">
+                        <img src="/Kaleidoscope/static/media/{{ listing.image}}">
+                        <div class="caption">
+                            {{ listing.description }}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="grid-item grid-item--width2">
-                <div class="thumbnail">
-                    <img src="{% static "media/Berries.png" %}">
-                    <div class="caption">
-                        Longer photo
-                    </div>
-                </div>
-            </div>
-            <div class="grid-item grid-item--width2">
-                <div class="thumbnail">
-                    <img src="{% static "media/FrontDoor.png" %}">
-                    <div class="caption">
-                        Longer photo
-                    </div>
-                </div>
-            </div>
-            <div class="grid-item grid-item--width2">
-                <div class="thumbnail">
-                    <img src="{% static "media/Berries.png" %}">
-                    <div class="caption">
-                        Longer photo
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-item grid-item--width2">
-                <div class="thumbnail">
-                    <img src="{% static "media/Berries.png" %}">
-                    <div class="caption">
-                        Longer photo
-                    </div>
-                </div>
-            </div>
-            <div class="grid-item grid-item--width2">
-                <div class="thumbnail">
-                    <img src="{% static "media/FrontDoor.png" %}">
-                    <div class="caption">
-                        Longer photo
-                    </div>
-                </div>
-            </div>
-            <div class="grid-item">
-                <div class="thumbnail">
-                    <img src="{% static "media/Bullshit.png" %}">
-                    <div class="caption">
-                        This is a test
-                    </div>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
 
 

@@ -16,8 +16,7 @@ class AppointmentCreateForm(forms.ModelForm):
 
     def __init__(self,*args,**kwargs):
         super(AppointmentCreateForm, self).__init__(*args,**kwargs)
-
         self.fields['client'].widget.attrs = {"class":"form-control"}
-        self.fields['start'].widget = forms.TextInput(attrs={"class":"form-control"})
-        self.fields['duration'].widget = forms.DateTimeInput(attrs={"class":"form-control"})
+        self.fields['start'].widget = forms.TextInput(attrs={"class":"form-control","id":"apptstart"})
+        self.fields['duration'].widget = forms.DateTimeInput(attrs={"class":"form-control","id":"apptduration"})
         self.fields['comments'].widget = forms.Textarea(attrs={"class":"form-control"})

@@ -11,7 +11,8 @@ class ListingCreateForm(forms.ModelForm):
         fields = [
             'title',
             'image',
-            'description'
+            'description',
+            'category'
         ]
 
     def __init__(self,*args,**kwargs):
@@ -20,10 +21,4 @@ class ListingCreateForm(forms.ModelForm):
         self.fields['title'].widget = forms.TextInput(attrs={"class":"form-control", "type":"text"})
         self.fields['image'].widget = forms.FileInput(attrs={"class":"form-control"})
         self.fields['description'].widget = forms.Textarea(attrs={"class" : "form-control"})
-
-    def validate(self):
-        if self.data['title'] and self.data['image'] and self.data['description']:
-            return True
-
-        return False
-
+        self.fields['category'].widget.attrs = {"class":"form-control"}

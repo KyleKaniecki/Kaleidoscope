@@ -13,7 +13,7 @@
     {% endblock %}
 
     <div class="container-fluid col-lg-6 col-lg-offset-3">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group">

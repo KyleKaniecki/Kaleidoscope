@@ -40,7 +40,7 @@
                     eventClick: function(calEvent, jsEvent, view) {
 
                         var body = $('#EventDetailBody');
-                        body.html("Client: " + calEvent.title + "<br>" + "Comments: " + calEvent.comments);
+                        body.html("Client: " + calEvent.title + "<br>"  + "Comments: " + calEvent.comments);
 
                         $('#EventDetailModal').modal();
 
@@ -75,6 +75,22 @@
                     );
 
                 {% endfor %}
+
+                $(function () {
+
+                    $('#apptstart').datetimepicker({
+                        format: 'MM/DD/YY HH:mm',
+                        sideBySide: true,
+                        minDate: moment()
+
+                    });
+                     $('#apptduration').datetimepicker({
+                         format: 'HH:mm',
+                         useCurrent: false,
+                         enabledHours: [0,1,2],
+                         defaultDate:moment(new Date()).hours(0).minutes(30).seconds(0).milliseconds(0)
+                     });
+                });
 
             });
     </script>
@@ -136,7 +152,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+              <button type="button" class="btn btn-primary">Update</button>
             <button type="button" class="btn btn-danger" form="EventDetailForm">Delete</button>
           </div>
         </div><!-- /.modal-content -->
