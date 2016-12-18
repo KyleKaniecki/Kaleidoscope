@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
     <nav class="navbar navbar-default">
@@ -24,5 +26,81 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+
+    {% block packery %}
+
+        <div class="grid col-lg-offset-1" id="masonrygrid">
+            <div class="grid-sizer"></div>
+            <div class="grid-item">
+                <div class="thumbnail">
+                    <img src="{% static "media/Bullshit.png" %}">
+                    <div class="caption">
+                        This is a test
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/Berries.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/FrontDoor.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/Berries.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/Berries.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/FrontDoor.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="thumbnail">
+                    <img src="{% static "media/Bullshit.png" %}">
+                    <div class="caption">
+                        This is a test
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <script>
+            var $grid = $('.grid').packery({
+                itemSelector: '.grid-item',
+                gutter: 10,
+                percentPosition: true
+            });
+
+
+        </script>
+    {% endblock %}
 
 {% endblock %}

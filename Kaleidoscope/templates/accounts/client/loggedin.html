@@ -24,6 +24,8 @@
 
 {% load static %}
 
+{% block content %}
+
 {% block navbar %}
 <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -62,25 +64,10 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    <script>
-        var $grid = $('.grid').masonry({
-          itemSelector: '.grid-item',
-          columnWidth: '.grid-sizer',
-          percentPosition: true
-        });
-
-        // layout Masonry after each image loads
-        $grid.imagesLoaded().progress( function() {
-          $grid.masonry('layout');
-        });
-
-
-    </script>
-
 
 {% endblock %}
 
-{% block masonry %}
+{% block packery %}
 
         <div class="grid col-lg-offset-1" id="masonrygrid">
             <div class="grid-sizer"></div>
@@ -108,12 +95,56 @@
                     </div>
                 </div>
             </div>
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/Berries.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/Berries.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/FrontDoor.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="thumbnail">
+                    <img src="{% static "media/Bullshit.png" %}">
+                    <div class="caption">
+                        This is a test
+                    </div>
+                </div>
+            </div>
 
         </div>
+
+
+    <script>
+        var $grid = $('.grid').packery({
+            itemSelector: '.grid-item',
+            gutter: 10,
+            percentPosition: true
+        });
+
+
+    </script>
 {% endblock %}
 
-{% block content %}
 
 {% endblock %}
+
 
 </html>

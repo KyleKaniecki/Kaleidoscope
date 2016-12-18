@@ -8,13 +8,16 @@
 {% extends "accounts/admin/loggedin.html" %}
 
 {% block content %}
-    {{ block.super }}
+    {% block navbar %}
+        {{ block.super }}
+    {% endblock %}
 
     <div class="container-fluid col-lg-6 col-lg-offset-3">
         <form method="post">
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group">
+                    <label>{{ field.errors }}</label>
                     <label>{{ field.label }}</label>
                     {{ field }}
                 </div>

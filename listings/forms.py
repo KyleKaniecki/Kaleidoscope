@@ -21,3 +21,9 @@ class ListingCreateForm(forms.ModelForm):
         self.fields['image'].widget = forms.FileInput(attrs={"class":"form-control"})
         self.fields['description'].widget = forms.Textarea(attrs={"class" : "form-control"})
 
+    def validate(self):
+        if self.data['title'] and self.data['image'] and self.data['description']:
+            return True
+
+        return False
+

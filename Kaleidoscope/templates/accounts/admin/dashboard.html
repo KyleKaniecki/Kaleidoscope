@@ -12,7 +12,9 @@
 
 {% block content %}
 
-    {{ block.super }}
+    {% block navbar %}
+        {{ block.super }}
+    {% endblock %}
 
     <script>
             $(document).ready(function() {
