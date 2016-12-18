@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'accounts',
     'home',
     'messaging',
-    'appointments'
+    'appointments',
+    'listings'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -123,9 +124,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATICFILES_DIRS=[
-    './Kaleidoscope/static/'
+    './Kaleidoscope/static/',
 ]
 STATIC_URL = '/Kaleidoscope/static/'
 
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_ROOT=os.path.join(BASE_DIR,'static/media/')
+MEDIA_URL= STATIC_URL + '/media/'
+

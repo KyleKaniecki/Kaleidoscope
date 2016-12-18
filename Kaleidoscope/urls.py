@@ -20,6 +20,10 @@ from home.views import Home
 
 from accounts.views import Login,CheckUser, LogOut
 
+from django.conf import settings
+
+from django.conf.urls.static import static
+
 urlpatterns = [
     url(r'^$',view= Home.as_view(), name="HomePage"),
     url(r'^account/',include('accounts.urls')),
@@ -27,5 +31,6 @@ urlpatterns = [
     url(r'^login/$',view=Login.as_view(),name="Login"),
     url(r'^loggedin/$', view=CheckUser.as_view(), name="Loggedin"),
     url(r'^logout/$',view=LogOut.as_view(),name="Logout"),
-    url(r'^messaging/', include('messaging.urls'))
-]
+    url(r'^messaging/', include('messaging.urls')),
+    url(r'^listings/', include('listings.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

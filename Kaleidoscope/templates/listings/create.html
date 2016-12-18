@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Listing</title>
+</head>
+
+{% extends "accounts/admin/loggedin.html" %}
+
+{% block content %}
+    {{ block.super }}
+
+    <div class="container-fluid col-lg-6 col-lg-offset-3">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <a href="{% url "Dashboard" %}" class="btn btn-danger">Cancel</a>
+            <button type="submit" class="btn btn-primary">Post</button>
+
+        </form>
+    </div>
+{% endblock %}
+
+</html>

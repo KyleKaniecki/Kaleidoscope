@@ -5,9 +5,26 @@
     <title>Kaleidoscope Glass</title>
 </head>
 
+<style>
+    .grid-sizer,
+    .grid-item { width: 10%;}
+    /* 2 columns */
+    .grid-item--width2 { width: 20%; }
+
+    .grid-item {
+        float: left;
+        border: 2px solid #333;
+        border-color: hsla(0, 0%, 0%, 0.5);
+        border-radius: 5px;
+    }
+
+</style>
+
 {% extends "base.html" %}
 
-{% block content %}
+{% load static %}
+
+{% block navbar %}
 <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -45,6 +62,58 @@
       </div><!-- /.container-fluid -->
     </nav>
 
+    <script>
+        var $grid = $('.grid').masonry({
+          itemSelector: '.grid-item',
+          columnWidth: '.grid-sizer',
+          percentPosition: true
+        });
+
+        // layout Masonry after each image loads
+        $grid.imagesLoaded().progress( function() {
+          $grid.masonry('layout');
+        });
+
+
+    </script>
+
 
 {% endblock %}
+
+{% block masonry %}
+
+        <div class="grid col-lg-offset-1" id="masonrygrid">
+            <div class="grid-sizer"></div>
+            <div class="grid-item">
+                <div class="thumbnail">
+                    <img src="{% static "media/Bullshit.png" %}">
+                    <div class="caption">
+                        This is a test
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/Berries.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item grid-item--width2">
+                <div class="thumbnail">
+                    <img src="{% static "media/FrontDoor.png" %}">
+                    <div class="caption">
+                        Longer photo
+                    </div>
+                </div>
+            </div>
+
+        </div>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
 </html>

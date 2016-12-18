@@ -1,13 +1,10 @@
 from django.shortcuts import render,redirect
 
 from django.views.generic import View
-from django.views.generic import CreateView
 
 from django.contrib.auth import authenticate, login, logout
 
 from .forms import UserRegistrationForm, ClientRegistrationForm, ClientUpdateForm, UserUpdateForm,LoginForm
-
-from messaging.forms import MessageCreateForm
 
 from .models import Client, Admin
 
@@ -52,12 +49,15 @@ class Dashboard(View):
                                                                "appointments":appointments})
 
     def post(self,request):
+
+        print(request.POST)
         form = AppointmentCreateForm(request.POST)
 
         if form.is_valid():
             appt = form.save(commit=False)
             appt.admin = Admin.objects.get(user = request.user)
             appt.save()
+
 
         form = AppointmentCreateForm(None)
 
