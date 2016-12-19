@@ -7,15 +7,13 @@
 
 <style>
     .grid-sizer,
-    .grid-item { width: 10%;}
-    /* 2 columns */
-    .grid-item--width2 { width: 20%; }
-
     .grid-item {
         float: left;
         border: 2px solid #333;
         border-color: hsla(0, 0%, 0%, 0.5);
         border-radius: 5px;
+        transition: background 0.4s, box-shadow 0.4s;
+        width: 15%;
     }
 
 </style>
@@ -42,6 +40,12 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="NavBarCollapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a class="btn" id="DoorButton">Doors</a></li>
+                <li><a class="btn" id="TransomButton">Transoms</a></li>
+                <li><a class="btn" id="CabinetButton">Cabinets</a></li>
+                <li><a class="btn" id="MiscellaneousButton">Miscellaneous</a></li>
+            </ul>
           <ul class="nav navbar-nav navbar-right">
               <li class="dropdown" id="NotificationDropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><i class="fa fa-bell "><span class="badge" id="NotificationBadge"></span></i></a>
@@ -69,26 +73,83 @@
 
 {% block packery %}
 
-        <div class="grid col-lg-offset-1" id="masonrygrid">
+        <div class="grid col-lg-offset-1 col-lg-10" id="isotopegrid">
             {% for listing in listings %}
-                <div class="grid-item">
-                    <div class="thumbnail">
-                        <img src="/Kaleidoscope/static/media/{{ listing.image}}">
-                        <div class="caption">
-                            {{ listing.description }}
+                {% if listing.category == 1 %}
+                    <div class="grid-item door">
+                        <div class="thumbnail">
+                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
+                            <div class="caption">
+                                {{ listing.description }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% elif listing.category == 2 %}
+                    <div class="grid-item transom">
+                        <div class="thumbnail">
+                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
+                            <div class="caption">
+                                {{ listing.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% elif listing.category == 3 %}
+                    <div class="grid-item cabinet" style="display: none">
+                        <div class="thumbnail">
+                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
+                            <div class="caption">
+                                {{ listing.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="grid-item miscellaneous" style="display: none">
+                        <div class="thumbnail">
+                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
+                            <div class="caption">
+                                {{ listing.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
 
 
     <script>
-        var $grid = $('.grid').packery({
+
+
+        var grid = $('.grid').isotope({
+            //layoutMode: 'packery',
+            packery:{
+                gutter: 10,
+                columnWidth: '.grid-sizer'
+            },
             itemSelector: '.grid-item',
-            gutter: 10,
             percentPosition: true
         });
+
+        grid.imagesLoaded();
+
+
+
+    
+        $('#TransomButton').click(function ShowTransoms(e) {
+            $('.grid').isotope({filter: '.transom'});
+        });
+
+         $('#DoorButton').click(function ShowDoors(e) {
+            $('.grid').isotope({filter: '.door'});
+         });
+
+          $('#CabinetButton').click(function ShowCabinets(e) {
+            $('.grid').isotope({filter: '.cabinet'});
+
+          });
+
+         $('#MiscellaneousButton').click(function ShowMiscellaneous(e) {
+            $('.grid').isotope({filter: '.miscellaneous'});
+         });
 
 
     </script>
