@@ -9,10 +9,11 @@
     .grid-sizer,
     .grid-item {
         float: left;
-        border: 2px solid #333;
+        /*border: 2px solid #333;
         border-color: hsla(0, 0%, 0%, 0.5);
-        border-radius: 5px;
+        border-radius: 2px;
         transition: background 0.4s, box-shadow 0.4s;
+        */
         width: 15%;
     }
 
@@ -73,10 +74,10 @@
 
 {% block packery %}
 
-        <div class="grid col-lg-offset-1 col-lg-10" id="isotopegrid">
+        <div class="grid col-lg-offset-2 col-lg-10" id="isotopegrid">
             {% for listing in listings %}
                 {% if listing.category == 1 %}
-                    <div class="grid-item door">
+                    <div class="grid-item door col-lg-3">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
@@ -85,7 +86,7 @@
                         </div>
                     </div>
                 {% elif listing.category == 2 %}
-                    <div class="grid-item transom">
+                    <div class="grid-item transom col-lg-3">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
@@ -94,7 +95,7 @@
                         </div>
                     </div>
                 {% elif listing.category == 3 %}
-                    <div class="grid-item cabinet" style="display: none">
+                    <div class="grid-item cabinet">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
@@ -103,7 +104,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="grid-item miscellaneous" style="display: none">
+                    <div class="grid-item miscellaneous">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
@@ -119,17 +120,19 @@
     <script>
 
 
-        var grid = $('.grid').isotope({
-            //layoutMode: 'packery',
-            packery:{
-                gutter: 10,
-                columnWidth: '.grid-sizer'
-            },
-            itemSelector: '.grid-item',
-            percentPosition: true
+        var grid = $('.grid');
+
+        grid.imagesLoaded(function () {
+            grid.isotope({
+                itemSelector: '.grid-item',
+                percentPosition: true,
+                gutter: 10
+            });
         });
 
-        grid.imagesLoaded();
+
+
+
 
 
 

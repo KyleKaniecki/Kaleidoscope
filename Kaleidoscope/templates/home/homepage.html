@@ -35,10 +35,10 @@
 
     {% block packery %}
 
-        <div class="grid col-lg-offset-1"  id="isotopegrid">
+        <div class="grid col-lg-14" id="isotopegrid">
             {% for listing in listings %}
                 {% if listing.category == 1 %}
-                    <div class="grid-item door">
+                    <div class="grid-item door col-lg-2">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 {% elif listing.category == 2 %}
-                    <div class="grid-item transom">
+                    <div class="grid-item transom col-lg-2">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 {% elif listing.category == 3 %}
-                    <div class="grid-item cabinet" style="display: none">
+                    <div class="grid-item cabinet">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="grid-item miscellaneous" style="display: none">
+                    <div class="grid-item miscellaneous">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
@@ -78,33 +78,45 @@
         </div>
 
 
+    <script>
 
-        <script>
-            var grid = $('.grid').isotope({
+
+        var grid = $('.grid');
+
+        grid.imagesLoaded(function () {
+            grid.isotope({
                 itemSelector: '.grid-item',
-                percentPosition: true
+                percentPosition: true,
+                gutter: 10
             });
+        });
 
 
-            $('#TransomButton').click(function ShowTransoms(e) {
-                $('.grid').isotope({filter: '.transom'});
-            });
-
-             $('#DoorButton').click(function ShowDoors(e) {
-                $('.grid').isotope({filter: '.door'});
-             });
-
-              $('#CabinetButton').click(function ShowCabinets(e) {
-                $('.grid').isotope({filter: '.cabinet'});
-
-              });
-
-             $('#MiscellaneousButton').click(function ShowMiscellaneous(e) {
-                $('.grid').isotope({filter: '.miscellaneous'});
-             });
 
 
-        </script>
+
+
+
+
+        $('#TransomButton').click(function ShowTransoms(e) {
+            $('.grid').isotope({filter: '.transom'});
+        });
+
+         $('#DoorButton').click(function ShowDoors(e) {
+            $('.grid').isotope({filter: '.door'});
+         });
+
+          $('#CabinetButton').click(function ShowCabinets(e) {
+            $('.grid').isotope({filter: '.cabinet'});
+
+          });
+
+         $('#MiscellaneousButton').click(function ShowMiscellaneous(e) {
+            $('.grid').isotope({filter: '.miscellaneous'});
+         });
+
+
+    </script>
     {% endblock %}
 
 {% endblock %}

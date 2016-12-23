@@ -72,34 +72,88 @@
     {% endblock %}
     {% block packery %}
 
-        <div class="grid col-lg-offset-1" id="masonrygrid">
-            <div class="grid-sizer"></div>
-            <div class="grid col-lg-offset-1" id="masonrygrid">
-                {% for listing in listings %}
-                    <div class="grid-item">
+        <div class="grid col-lg-14" id="isotopegrid">
+            {% for listing in listings %}
+                {% if listing.category == 1 %}
+                    <div class="grid-item door col-lg-2">
                         <div class="thumbnail">
                             <img src="/Kaleidoscope/static/media/{{ listing.image}}">
                             <div class="caption">
-                                <h3>{{ listing.title }}</h3>
                                 {{ listing.description }}
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
-
+                {% elif listing.category == 2 %}
+                    <div class="grid-item transom col-lg-2">
+                        <div class="thumbnail">
+                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
+                            <div class="caption">
+                                {{ listing.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% elif listing.category == 3 %}
+                    <div class="grid-item cabinet col-lg-2">
+                        <div class="thumbnail">
+                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
+                            <div class="caption">
+                                {{ listing.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="grid-item miscellaneous col-lg-2">
+                        <div class="thumbnail">
+                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
+                            <div class="caption">
+                                {{ listing.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
 
 
-        <script>
-            var $grid = $('.grid').packery({
+    <script>
+
+
+        var grid = $('.grid');
+
+        grid.imagesLoaded(function () {
+            grid.isotope({
                 itemSelector: '.grid-item',
-                gutter: 10,
-                percentPosition: true
+                percentPosition: true,
+                gutter: 10
             });
+        });
 
 
-        </script>
+
+
+
+
+
+
+        $('#TransomButton').click(function ShowTransoms(e) {
+            $('.grid').isotope({filter: '.transom'});
+        });
+
+         $('#DoorButton').click(function ShowDoors(e) {
+            $('.grid').isotope({filter: '.door'});
+         });
+
+          $('#CabinetButton').click(function ShowCabinets(e) {
+            $('.grid').isotope({filter: '.cabinet'});
+
+          });
+
+         $('#MiscellaneousButton').click(function ShowMiscellaneous(e) {
+            $('.grid').isotope({filter: '.miscellaneous'});
+         });
+
+
+    </script>
     {% endblock %}
 
 
