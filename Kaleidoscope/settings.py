@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'home',
     'messaging',
     'appointments',
-    'listings'
+    'listings',
+    'notifications'
 ]
 
 MIDDLEWARE_CLASSES = [

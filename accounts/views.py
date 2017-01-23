@@ -15,6 +15,9 @@ from listings.models import Listing
 
 from django.contrib.auth.models import User
 
+from notifications.signals import notify
+from notifications.models import Notification
+
 # Create your views here.
 
 class Login(View):
@@ -47,8 +50,11 @@ class Dashboard(View):
 
         appointments = Appointment.objects.filter(admin = Admin.objects.get(user=request.user))
 
+        notifications = request.user.notifications.unread()
+
         return render(request,"accounts/admin/dashboard.html",{"form":form,
-                                                               "appointments":appointments})
+                                                               "appointments":appointments,
+                                                               "notifications": notifications})
 
     def post(self,request):
 
@@ -76,13 +82,11 @@ class CheckUser(View):
     def get(self,request):
         listings = Listing.objects.all()
         if Admin.objects.filter(user=request.user):
-            return render(request, "accounts/admin/loggedin.html",context={"listings":listings})
+            return redirect("/account/dashboard")
+            #return render(request, "accounts/admin/dashboard.html",context={"listings":listings})
         else:
             return render(request, "accounts/client/loggedin.html",context={"listings":listings})
 
-    def post(self,request):
-        listings = Listing.objects.all()
-        return render(request, "accounts/admin/loggedin.html",context={"listings":listings})
 
 def create_client(request):
     title = "Register"

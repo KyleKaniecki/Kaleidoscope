@@ -14,10 +14,6 @@
 
     {% block navbar %}
         {{ block.super }}
-
-        <script>
-            $('#NavBarLeft').html('<li><a href={% url "Loggedin" %} class="btn">Home</a>')
-        </script>
     {% endblock %}
 
     <script>
