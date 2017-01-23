@@ -39,6 +39,56 @@
 <body>
 {% block content %}
 
+    {% block navbar %}
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href={% url "Loggedin" %}>Kaleidoscope Glass</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="NavBarCollapse">
+                <ul class="nav navbar-nav navbar-left" id="NavBarLeft">
+                    {% if user.is_staff %}
+                        <li><a class="btn" id="DashboardButton" href="{% url "Dashboard" %}">Dashboard</a> </li>
+                    {% endif %}
+                    <li><a class="btn" id="DoorButton">Doors</a></li>
+                    <li><a class="btn" id="TransomButton">Transoms</a></li>
+                    <li><a class="btn" id="CabinetButton">Cabinets</a></li>
+                    <li><a class="btn" id="MiscellaneousButton">Miscellaneous</a></li>
+                    <li><a class="btn" id="ContactButton" href="">Contact</a> </li>
+                </ul>
+              <ul class="nav navbar-nav navbar-right" id="NavBarRight">
+                  <li class="dropdown" id="NotificationDropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><i class="fa fa-bell "><span class="badge" id="NotificationBadge"></span></i></a>
+                    <ul class="dropdown-menu" id="NotificationList">
+
+                    </ul>
+                  </li>
+                    <li class="dropdown" id="ProfileDropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href={% url 'ClientUpdate' %}>Update Profile</a></li>
+                            <li><a href="{% url 'Inbox' %}">Inbox</a></li>
+                            <li><a href="{% url 'Logout' %}">Log Out</a></li>
+                        </ul>
+                    </li>
+
+
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+
+    {% endblock %}
+
 {% endblock %}
 </body>
 

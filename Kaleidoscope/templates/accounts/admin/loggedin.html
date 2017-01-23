@@ -28,133 +28,25 @@
 
 {% block content %}
     {% block navbar %}
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href={% url "Loggedin" %}>Kaleidoscope Glass</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="NavBarCollapse">
-            <ul class="nav navbar-nav navbar-default">
-                <li class="navbar-nav">
-                    <a href={% url "Dashboard" %}>Dashboard</a>
-                </li>
-            </ul>
-          <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown" id="NotificationDropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><i class="fa fa-bell "><span class="badge" id="NotificationBadge"></span></i></a>
-                <ul class="dropdown-menu" id="NotificationList">
-
-                </ul>
-              </li>
-                <li class="dropdown" id="ProfileDropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href={% url 'ClientUpdate' %}>Update Profile</a></li>
-                        <li><a href="{% url 'Inbox' %}">Inbox</a></li>
-                        <li><a href="{% url 'Logout' %}">Log Out</a></li>
-                    </ul>
-                </li>
-
-
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+        {{ block.super }}
     {% endblock %}
-    {% block packery %}
 
-        <div class="grid col-lg-14" id="isotopegrid">
-            {% for listing in listings %}
-                {% if listing.category == 1 %}
-                    <div class="grid-item door col-lg-2">
-                        <div class="thumbnail">
-                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
-                            <div class="caption">
-                                {{ listing.description }}
-                            </div>
-                        </div>
-                    </div>
-                {% elif listing.category == 2 %}
-                    <div class="grid-item transom col-lg-2">
-                        <div class="thumbnail">
-                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
-                            <div class="caption">
-                                {{ listing.description }}
-                            </div>
-                        </div>
-                    </div>
-                {% elif listing.category == 3 %}
-                    <div class="grid-item cabinet col-lg-2">
-                        <div class="thumbnail">
-                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
-                            <div class="caption">
-                                {{ listing.description }}
-                            </div>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="grid-item miscellaneous col-lg-2">
-                        <div class="thumbnail">
-                            <img src="/Kaleidoscope/static/media/{{ listing.image}}">
-                            <div class="caption">
-                                {{ listing.description }}
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
+
+    <div class="container-fluid col-lg-4">
+        <div class="jumbotron">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Kaleidoscope Glass</h3>
+              </div>
+              <div class="panel-body">
+                Kaleidoscope Glass is a custom stained glass studio specializing in unique one of a kind designs for clients.
+                  We have been serving individuals, designers, and architechs in the Cleveland area for over 25 years.
+                  We can help you realize your design inspirations.
+              </div>
+            </div>
+
         </div>
-
-
-    <script>
-
-
-        var grid = $('.grid');
-
-        grid.imagesLoaded(function () {
-            grid.isotope({
-                itemSelector: '.grid-item',
-                percentPosition: true,
-                gutter: 10
-            });
-        });
-
-
-
-
-
-
-
-
-        $('#TransomButton').click(function ShowTransoms(e) {
-            $('.grid').isotope({filter: '.transom'});
-        });
-
-         $('#DoorButton').click(function ShowDoors(e) {
-            $('.grid').isotope({filter: '.door'});
-         });
-
-          $('#CabinetButton').click(function ShowCabinets(e) {
-            $('.grid').isotope({filter: '.cabinet'});
-
-          });
-
-         $('#MiscellaneousButton').click(function ShowMiscellaneous(e) {
-            $('.grid').isotope({filter: '.miscellaneous'});
-         });
-
-
-    </script>
-    {% endblock %}
+    </div>
 
 
 {% endblock %}

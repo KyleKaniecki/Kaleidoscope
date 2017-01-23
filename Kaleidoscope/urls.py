@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^logout/$',view=LogOut.as_view(),name="Logout"),
     url(r'^messaging/', include('messaging.urls')),
     url(r'^listings/', include('listings.urls')),
+    url(r'^appointment/',include('appointments.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

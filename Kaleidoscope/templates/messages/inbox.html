@@ -1,4 +1,4 @@
-{% extends "home/../accounts/admin/loggedin.html" %}
+{% extends "accounts/client/loggedin.html" %}
 
 <style>
     body{ margin-top:50px;}
@@ -20,6 +20,10 @@
 {% block content %}
     {% block navbar %}
         {{ block.super }}
+
+        <script>
+            $('#NavBarLeft').html('<li><a href={% url "Loggedin" %} class="btn">Home</a>')
+        </script>
     {% endblock %}
 
     <div class="container">
@@ -173,6 +177,10 @@
                 }
             });
         }
+
+        $(document).ready(function (){
+           $('')
+        });
     </script>
 
 {% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Delete {{ appt }}?</title>
+</head>
+<body>
+
+{% block content %}
+    {% block navbar %}
+        {{ block.super }}
+    {% endblock %}
+
+    <div class="container-fluid">
+        <div class="jumbotron col-lg-8 col-lg-offset-2">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h3>Delete Appointment</h3>
+                <p>Are you sure that you would like to delete appointment with {{ object.client }}?</p>
+                <a href="{% url "Dashboard" %}" class="btn btn-primary" type="submit">Cancel</a>
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+</body>
+</html>

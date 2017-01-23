@@ -15,3 +15,6 @@ class Appointment(models.Model):
     duration = models.TimeField()
 
     comments = models.TextField(max_length=160,blank=True,null=True)
+
+    def __str__(self):
+        return "Appointment with " + self.admin + " and " + self.client

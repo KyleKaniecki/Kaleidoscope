@@ -14,6 +14,10 @@
 
     {% block navbar %}
         {{ block.super }}
+
+        <script>
+            $('#NavBarLeft').html('<li><a href={% url "Loggedin" %} class="btn">Home</a>')
+        </script>
     {% endblock %}
 
     <script>
@@ -44,6 +48,8 @@
 
                         $('#EventDetailModal').modal();
 
+                        $('#DeleteAppt').attr("href",("/appointment/delete/"+calEvent.id))
+
 
                     },
                     events:[
@@ -67,6 +73,7 @@
                                         title: '{{ appt.client.user.first_name }} {{ appt.client.user.last_name }}',
                                         id: {{ appt.id }},
                                         start:'{{ appt.start|date:"c" }}'.substr(0,19),
+                                        object:'',
                                         end:end,
                                         url: '',
                                         comments:'{{ appt.comments }}'
@@ -153,7 +160,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary">Update</button>
-            <button type="button" class="btn btn-danger" form="EventDetailForm">Delete</button>
+            <a href="" type="button" class="btn btn-danger" form="EventDetailForm" id="DeleteAppt">Delete</a>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
