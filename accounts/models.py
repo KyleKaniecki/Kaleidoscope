@@ -18,4 +18,5 @@ class Client(models.Model):
 
 
 class Admin(Client):
-    pass
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name

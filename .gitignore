@@ -19,3 +19,5 @@ build/
 tests/report/
 .idea/
 db.sqlite3
+static.old/
+.DS_Store

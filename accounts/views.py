@@ -15,8 +15,7 @@ from listings.models import Listing
 
 from django.contrib.auth.models import User
 
-from notifications.signals import notify
-from notifications.models import Notification
+from notify.signals import notify
 
 # Create your views here.
 
@@ -65,6 +64,11 @@ class Dashboard(View):
             appt = form.save(commit=False)
             appt.admin = Admin.objects.get(user = request.user)
             appt.save()
+            notify.send(appt.admin.user,
+                        actor=appt.admin.user,
+                        recipient=appt.client.user,
+                        verb=u"has created an appointment with you",
+                        target=appt)
 
 
         form = AppointmentCreateForm(None)

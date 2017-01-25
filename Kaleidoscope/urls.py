@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-import notifications.urls
 from django.contrib import admin
 
 from home.views import Home
@@ -35,5 +34,5 @@ urlpatterns = [
     url(r'^messaging/', include('messaging.urls')),
     url(r'^listings/', include('listings.urls')),
     url(r'^appointment/',include('appointments.urls')),
-    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    url(r'^notifications/', include('notify.urls', 'notifications')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

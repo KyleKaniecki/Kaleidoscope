@@ -1,6 +1,5 @@
 
 {% load staticfiles  %}
-{% load notifications_tags %}
 
 <script src={% static 'home/jquery-3.1.1.min.js' %}></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -21,14 +20,21 @@
 <!---- Masonry CDN ---->
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
+<!--- Bootstrap DateTime Picker and Momentjs --->
 <script src={% static "home/moment.js" %}></script>
 <link href="{% static "home/bootstrap-datetimepicker-standalone.css" %}" rel="stylesheet">
 <link href="{% static "home/bootstrap-datetimepicker.min.css" %}" rel="stylesheet">
 <script src="{% static "home/bootstrap-datetimepicker.min.js" %}"></script>
 
-
+<!--- Calendar.io --->
 <link rel="stylesheet" type="text/css" href={% static "home/fullcalendar.min.css" %}>
 <script src={% static "home/fullcalendar.min.js" %}></script>
+
+<!--- Notify-X for Django --->
+<script src="{% static "notify/notifyX.js" %}"></script>
+{% load notification_tags %}
+<!--<script src="{% static "notify/update_functions.js" %}"></script>-->
+{% include_notify_js_variables %}
 
 
 <html>
@@ -69,9 +75,12 @@
                     {% endif %}
                 </ul>
               <ul class="nav navbar-nav navbar-right" id="NavBarRight">
-                  <li class="dropdown" id="NotificationDropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><i class="fa fa-bell "><span class="badge" id="NotificationBadge">{% notifications_unread %}</span></i></a>
-                    {% live_notify_list classes="dropdown-menu" %}
+                  <li class="dropdown notification-box" id="NotificationDropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><i class="fa fa-bell ">0</i></a>
+                    <ul class="dropdown-menu notification-box-list">
+                        {% user_notifications %}
+                        <li><a>View All Notifications</a></li>
+                    </ul>
                   </li>
                     <li class="dropdown" id="ProfileDropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
@@ -81,15 +90,10 @@
                             <li><a href="{% url 'Logout' %}">Log Out</a></li>
                         </ul>
                     </li>
-
-
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
-
-
-
 
     {% endblock %}
 
@@ -142,25 +146,7 @@
                     </a>
                 </div>
             </div>
-            <div class="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-
-                </div>
-            </div>
         </div>
-
-        <script>
-
-            var carouselinnter = $(".carousel-inner");
-            carouselinnter.append("<div class='test'>" +
-                                    "" +
-                                  "</div>")
-        </script>
     {% endblock %}
 
 {% endblock %}

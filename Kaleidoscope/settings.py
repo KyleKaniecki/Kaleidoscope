@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,7 +41,7 @@ INSTALLED_APPS = [
     'messaging',
     'appointments',
     'listings',
-    'notifications'
+    'notify'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -124,9 +123,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATICFILES_DIRS=[
-    './Kaleidoscope/static/',
-]
+STATIC_ROOT='Kaleidoscope/static/'
+
+#STATICFILES_DIRS=[
+#    './Kaleidoscope/static/',
+#]
+
 STATIC_URL = '/Kaleidoscope/static/'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'Kaleidoscope/static/media/')
