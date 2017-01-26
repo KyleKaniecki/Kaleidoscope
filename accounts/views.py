@@ -15,7 +15,7 @@ from listings.models import Listing
 
 from django.contrib.auth.models import User
 
-from notify.signals import notify
+from notifications.signals import notify
 
 # Create your views here.
 
@@ -49,11 +49,8 @@ class Dashboard(View):
 
         appointments = Appointment.objects.filter(admin = Admin.objects.get(user=request.user))
 
-        notifications = request.user.notifications.unread()
-
         return render(request,"accounts/admin/dashboard.html",{"form":form,
-                                                               "appointments":appointments,
-                                                               "notifications": notifications})
+                                                               "appointments":appointments})
 
     def post(self,request):
 
@@ -64,8 +61,8 @@ class Dashboard(View):
             appt = form.save(commit=False)
             appt.admin = Admin.objects.get(user = request.user)
             appt.save()
-            notify.send(appt.admin.user,
-                        actor=appt.admin.user,
+            notify.send(request.user,
+                        actor=(appt.admin.user.first_name + " " + appt.admin.user.last_name),
                         recipient=appt.client.user,
                         verb=u"has created an appointment with you",
                         target=appt)

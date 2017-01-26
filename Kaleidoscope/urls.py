@@ -24,6 +24,8 @@ from django.conf import settings
 
 from django.conf.urls.static import static
 
+import notifications.urls
+
 urlpatterns = [
     url(r'^$',view= Home.as_view(), name="HomePage"),
     url(r'^account/',include('accounts.urls')),
@@ -34,5 +36,6 @@ urlpatterns = [
     url(r'^messaging/', include('messaging.urls')),
     url(r'^listings/', include('listings.urls')),
     url(r'^appointment/',include('appointments.urls')),
-    url(r'^notifications/', include('notify.urls', 'notifications')),
+    url('^notifications/', include(notifications.urls, namespace='notifications')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

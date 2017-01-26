@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'messaging',
     'appointments',
     'listings',
-    'notify'
+    'notifications'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -123,11 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_ROOT='Kaleidoscope/static/'
+#STATIC_ROOT='/Kaleidoscope/static/'
 
-#STATICFILES_DIRS=[
-#    './Kaleidoscope/static/',
-#]
+STATICFILES_DIRS=[
+    './Kaleidoscope/static/',
+]
 
 STATIC_URL = '/Kaleidoscope/static/'
 

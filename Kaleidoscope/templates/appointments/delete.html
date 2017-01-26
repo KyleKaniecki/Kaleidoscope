@@ -19,7 +19,7 @@
                 {% csrf_token %}
                 <h3>Delete Appointment</h3>
                 <p>Are you sure that you would like to delete appointment with {{ object.client }}?</p>
-                <a href="{% url "Dashboard" %}" class="btn btn-primary" type="submit">Cancel</a>
+                <a href="{% url "Loggedin" %}" class="btn btn-primary" type="submit">Cancel</a>
                 <button class="btn btn-danger" type="submit">Delete</button>
             </form>
         </div>
