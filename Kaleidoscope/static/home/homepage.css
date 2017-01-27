@@ -1,0 +1,21 @@
+.carousel-inner > .item > img{
+    width: 100%;
+    height: 420px;
+}
+
+.carousel {
+    height: 420px;
+}
+
+.carousel-panel {
+    height:450px;
+}
+
+.cats {
+    height : 450px;
+}
+
+/*body {
+    background-color: #FFFCB9;
+}
+*/

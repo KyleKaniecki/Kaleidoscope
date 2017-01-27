@@ -45,21 +45,31 @@ class Dashboard(View):
 
     def get(self,request):
 
-        form = AppointmentCreateForm()
+        form = AppointmentCreateForm(user=request.user)
 
-        appointments = Appointment.objects.filter(admin = Admin.objects.get(user=request.user))
+        if not request.user.is_staff:
+            appointments = Appointment.objects.filter(client = Client.objects.get(user=request.user))
+        else:
+            appointments = Appointment.objects.filter(admin = Admin.objects.get(user=request.user))
 
         return render(request,"accounts/admin/dashboard.html",{"form":form,
                                                                "appointments":appointments})
 
     def post(self,request):
 
-        print(request.POST)
-        form = AppointmentCreateForm(request.POST)
+        #print(request.POST)
+        form = AppointmentCreateForm(user=request.user,data=request.POST)
+        appointments = []
 
         if form.is_valid():
             appt = form.save(commit=False)
-            appt.admin = Admin.objects.get(user = request.user)
+            if request.user.is_staff:
+                appt.admin = Admin.objects.get(user=request.user)
+                appointments = Appointment.objects.filter(admin=Admin.objects.get(user=request.user))
+            else:
+                appt.client = Client.objects.get(user=request.user)
+                appointments = Appointment.objects.filter(client=Client.objects.get(user=request.user))
+
             appt.save()
             notify.send(request.user,
                         actor=(appt.admin.user.first_name + " " + appt.admin.user.last_name),
@@ -67,15 +77,9 @@ class Dashboard(View):
                         verb=u"has created an appointment with you",
                         target=appt)
 
-
-        form = AppointmentCreateForm(None)
-
-        appointments = Appointment.objects.filter(admin=Admin.objects.get(user=request.user))
-
-
+        form = AppointmentCreateForm(user=request.user,data=None)
         return render(request,"accounts/admin/dashboard.html",context={"form":form,
                                                                        "appointments":appointments})
-
 
 
 class CheckUser(View):

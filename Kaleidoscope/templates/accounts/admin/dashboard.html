@@ -106,7 +106,9 @@
                 <div class="panel-body">
                     <div class="btn-group-vertical">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#EventCreateModal">Create Appointment</button>
-                        <a href='{% url "ListingCreate" %}' class="btn btn-primary">Create New Listing</a>
+                        {% if request.user.is_staff %}
+                            <a href='{% url "ListingCreate" %}' class="btn btn-primary">Create New Listing</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -129,7 +131,11 @@
             {% csrf_token %}
                 <div class="form-group">
                     {% for field in form %}
-                        <label>{{ field.label }}</label>
+                        {% if field.is_hidden %}
+                        {% else %}
+                            <label>{{ field.label }}</label>
+                        {% endif %}
+                        {{ field.errors }}
                         {{ field }}
                     {% endfor %}
                 </div>
