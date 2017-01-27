@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kaleidoscope Glass Doors</title>
+</head>
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% block navbar %}
+        {{ block.super }}
+    {% endblock %}
+
+    {% block doors %}
+        <script>
+            $('.grid').packery({
+                // options
+                itemSelector: '.grid-item',
+                gutter: 10
+            });
+        </script>
+
+        <div class="grid">
+            <div class="grid-item">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <i></i>
+                    </div>
+                    <div class="panel-footer">
+                        <h3>{{ door.title }}</h3>
+                        <p>{{ door.description }}</p>
+                        <p>By: {{ door.author }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item">
+
+            </div>
+            <div class="grid-item">
+
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}
+</html>

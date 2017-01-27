@@ -37,6 +37,7 @@ function fill_notification_list(data) {
             {
                 menu.innerHTML = menu.innerHTML + "<li role='separator' class='divider'></li>";
             }
+            console.log("FUCK");
         }
     }
 }
