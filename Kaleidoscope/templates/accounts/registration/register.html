@@ -15,21 +15,34 @@
             <form class="col-lg-6 col-lg-offset-3" method="post">
                 {% csrf_token %}
                 {% for field in userform %}
-                    <div class="input-group">
-                        <span class="input-group-addon">{{ field.label }}</span>
-                        {{ field }}
-                    </div>
+                    {% if field.errors %}
+                        <span class="help-block">{{ field.errors }}</span>
+                        <div class="input-group has-error">
+                            <span class="input-group-addon">{{ field.label }}</span>
+                            {{ field }}
+                        </div>
+                    {% else %}
+                        <div class="input-group">
+                            <span class="input-group-addon">{{ field.label }}</span>
+                            {{ field }}
+                        </div>
+                    {% endif %}
                     <br>
                 {% endfor %}
 
                 {% for field in clientform %}
-                   <div class="input-group">
-                        <span class="input-group-addon">{{ field.label }}</span>
-                        {{ field }}
-                        {% if field.errors %}
-                            {{ field.errors.as_text }}
-                        {% endif %}
-                    </div>
+                    {% if field.errors %}
+                        <span class="help-block">{{ field.errors }}</span>
+                        <div class="input-group has-error">
+                            <span class="input-group-addon">{{ field.label }}</span>
+                            {{ field }}
+                        </div>
+                    {% else %}
+                       <div class="input-group">
+                            <span class="input-group-addon">{{ field.label }}</span>
+                            {{ field }}
+                        </div>
+                    {% endif %}
                     <br>
                 {% endfor %}
                 <a href="{% url "HomePage" %}" class="btn btn-danger">Cancel</a>

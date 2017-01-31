@@ -131,11 +131,9 @@
             {% csrf_token %}
                 <div class="form-group">
                     {% for field in form %}
-                        {% if field.is_hidden %}
-                        {% else %}
+                        {% if not field.is_hidden %}
                             <label>{{ field.label }}</label>
                         {% endif %}
-                        {{ field.errors }}
                         {{ field }}
                     {% endfor %}
                 </div>

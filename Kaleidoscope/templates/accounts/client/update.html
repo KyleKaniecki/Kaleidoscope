@@ -30,9 +30,6 @@
                    <div class="input-group">
                         <span class="input-group-addon">{{ field.label }}</span>
                         {{ field }}
-                        {% if field.errors %}
-                            {{ field.errors.as_text }}
-                        {% endif %}
                     </div>
                     <br>
                 {% endfor %}

@@ -16,10 +16,18 @@
 
                     {% csrf_token %}
                     {% for field in form %}
-                        <div class="input-group">
-                            <span class="input-group-addon">{{ field.label }}</span>
-                            {{ field }}
-                        </div>
+                        {% if field.errors %}
+                            <span class="help-block">{{ field.errors }}</span>
+                            <div class="input-group has-error">
+                                <span class="input-group-addon">{{ field.label }}</span>
+                                {{ field }}
+                            </div>
+                        {% else %}
+                            <div class="input-group">
+                                <span class="input-group-addon">{{ field.label }}</span>
+                                {{ field }}
+                            </div>
+                        {% endif %}
                         <br>
                     {% endfor %}
 

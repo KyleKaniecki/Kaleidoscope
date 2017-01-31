@@ -16,11 +16,18 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
-                <div class="form-group">
-                    <label>{{ field.errors }}</label>
-                    <label>{{ field.label }}</label>
-                    {{ field }}
-                </div>
+                {% if field.errors %}
+                    <div class="form-group has-error">
+                        <label>{{ field.label }}</label>
+                        <span class="help-block">{{ field.errors }}</span>
+                        {{ field }}
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
             {% endfor %}
             <a href="{% url "Dashboard" %}" class="btn btn-danger">Cancel</a>
             <button type="submit" class="btn btn-primary">Post</button>
