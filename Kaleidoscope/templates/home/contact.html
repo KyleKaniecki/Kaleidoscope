@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Annette Schell</title>
+</head>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% block navbar %}
+        {{ block.super }}
+    {% endblock %}
+
+    {% block contact %}
+        <div class="container-fluid col-lg-10 col-lg-offset-1">
+            <div class="page-header">
+                <h1>Annette Schell</h1>
+            </div>
+            <div class="jumbotron">
+                <div class="row">
+                    <div class=" container col-lg-4">
+                        <img src="{% static 'media/profpic.jpg' %}" class="img-circle img-responsive img-thumbnail"/>
+                    </div>
+                    <div class="panel panel-default col-lg-offset-4">
+                        <div class="panel-body">
+                            <p>Annette Schell is currently the owner and one of the founders of Kaleidoscope Glass.
+                                She currently lives near Cleveland, Ohio, but she plans to soon move to New Tazewell, Tennessee.
+                            </p>
+                            <p>Her contact info is as follows:</p>
+                            <p>Phone: 440-555-5555</p>
+                            <p>Email: yht1234@rit.edu</p>
+                            <p>You can also message her directly on this site!</p>
+                            <button class="btn btn-primary" role="button">Message Annette</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+
+        </div>
+    {% endblock %}
+{% endblock %}
+</html>

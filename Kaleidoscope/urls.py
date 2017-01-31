@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from home.views import Home
+from home.views import Home, Contact
 
 from accounts.views import Login,CheckUser, LogOut
 
@@ -37,5 +37,6 @@ urlpatterns = [
     url(r'^listings/', include('listings.urls')),
     url(r'^appointment/',include('appointments.urls')),
     url('^notifications/', include(notifications.urls, namespace='notifications')),
+    url(r'^contact/$',Contact.as_view(),name="Contact")
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
