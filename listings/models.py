@@ -20,3 +20,5 @@ class Listing(models.Model):
     description = models.TextField(max_length=300)
 
     category = models.IntegerField(choices=CATEGORIES,default=1)
+
+    consultation = models.BooleanField(default=False)

@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
+from django.core.urlresolvers import reverse_lazy
 
-from django.views.generic import View
+from django.views.generic import View,DeleteView
 
 from accounts.models import Admin
 
@@ -21,7 +22,6 @@ class ListingCreate(View):
     def post(self,request):
         form = ListingCreateForm(request.POST,request.FILES)
 
-        print(form.errors)
         if form.is_valid():
             listing = form.save(commit=False)
             listing.author = Admin.objects.get(user=request.user)
@@ -33,4 +33,32 @@ class ListingCreate(View):
 class Doors(View):
 
     def get(self,request):
+        for door in Listing.objects.filter(category=1):
+            print(door.image)
         return render(request,"listings/doors.html",{"doors":Listing.objects.filter(category=1)})
+
+class ListingUpdate(View):
+
+    def get(self,request,pk):
+        form = ListingCreateForm(None,instance=Listing.objects.get(pk=pk))
+        return render(request,'listings/create.html',{'form':form})
+
+    def post(self,request,pk):
+        form = ListingCreateForm(request.POST,instance=Listing.objects.get(pk=pk))
+
+        if form.is_valid():
+            listing = form.save(commit=False)
+            listing.author = Admin.objects.get(user=request.user)
+            listing.save()
+            return redirect("/listings/doors")
+
+        return render(request, "listings/create.html", {"form": form})
+
+
+class ListingDelete(DeleteView):
+
+    model = Listing
+    template_name = "listings/delete.html"
+
+    success_url = reverse_lazy("DoorsView")
+

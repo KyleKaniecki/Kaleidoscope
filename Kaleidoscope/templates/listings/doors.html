@@ -38,13 +38,21 @@
                             <h3>{{ door.title }}</h3>
                         </div>
                         <div class="panel-body">
-                            <img class="img-responsive img-rounded" src={% static 'media/annette_cell_5-2015_138.JPG' %}/>
+                            <img class="img-responsive img-rounded" src="{% static 'media'%}/{{ door.image}}"/>
                         </div>
                         <div class="panel-footer">
                             <p>{{ door.description }}</p>
                             <p>By: {{ door.author }}</p>
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
-                            <a href="#" class="btn btn-primary">Message Author</a>
+                            {% if not request.user.is_staff %}
+                                {% if door.consultation %}
+                                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                                {% else %}
+                                    <a href="#" class="btn btn-primary">Setup Consultation</a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url "ListingUpdate" pk=door.id %}" class="btn btn-primary">Update</a>
+                                <a href="{% url "ListingDelete" pk=door.id %}" class="btn btn-danger">Delete</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

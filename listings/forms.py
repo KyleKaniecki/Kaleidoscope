@@ -12,7 +12,8 @@ class ListingCreateForm(forms.ModelForm):
             'title',
             'image',
             'description',
-            'category'
+            'category',
+            'consultation'
         ]
 
     def __init__(self,*args,**kwargs):
@@ -22,3 +23,4 @@ class ListingCreateForm(forms.ModelForm):
         self.fields['image'].widget = forms.FileInput(attrs={"class":"form-control"})
         self.fields['description'].widget = forms.Textarea(attrs={"class" : "form-control"})
         self.fields['category'].widget.attrs = {"class":"form-control"}
+        self.fields['consultation'].label = "Consultation required?"

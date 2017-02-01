@@ -49,7 +49,7 @@ class ApptUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Appointment
-        field = [
+        fields = [
             'start',
             'duration',
             'comments'

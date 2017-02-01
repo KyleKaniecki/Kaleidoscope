@@ -90,7 +90,7 @@ class CheckUser(View):
             return redirect("/account/dashboard")
             #return render(request, "accounts/admin/dashboard.html",context={"listings":listings})
         else:
-            return render(request, "accounts/client/loggedin.html",context={"listings":listings})
+            return render(request, "home/homepage.html",context={"listings":listings})
 
 
 def create_client(request):
