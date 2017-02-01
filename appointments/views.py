@@ -1,8 +1,11 @@
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import render,redirect
 
-from django.views.generic import DeleteView,DetailView
+from django.views.generic import DeleteView,DetailView, View
 
 from .models import Appointment
+
+from .forms import ApptUpdateForm
 
 from django.contrib.auth.models import User
 
@@ -31,3 +34,11 @@ class ApptDetailView(DetailView):
             if i.target == self.get_object():
                 i.mark_as_read()
         return super(ApptDetailView, self).get(request)
+
+class ApptUpdateView(View):
+
+    def get(self,request):
+        return render(request,'appointments/update.html')
+
+    def post(self,request):
+        pass

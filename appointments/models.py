@@ -8,8 +8,8 @@ from accounts.models import Client,Admin
 
 class Appointment(models.Model):
 
-    client = models.ForeignKey(Client,on_delete=models.CASCADE,related_name="appointmentClient")
-    admin = models.ForeignKey(Admin,on_delete=models.CASCADE,related_name="appointmentAdmin")
+    client = models.ForeignKey(Client,on_delete=models.CASCADE,related_name="appointmentClient",blank=True)
+    admin = models.ForeignKey(Admin,on_delete=models.CASCADE,related_name="appointmentAdmin",blank=True)
 
     start = models.DateTimeField()
     duration = models.TimeField()
