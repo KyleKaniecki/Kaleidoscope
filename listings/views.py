@@ -33,9 +33,24 @@ class ListingCreate(View):
 class Doors(View):
 
     def get(self,request):
-        for door in Listing.objects.filter(category=1):
-            print(door.image)
-        return render(request,"listings/doors.html",{"doors":Listing.objects.filter(category=1)})
+        return render(request, "listings/display.html", {"listings":Listing.objects.filter(category=1)})
+
+class Transoms(View):
+
+    def get(self,request):
+        return render(request, "listings/display.html",{"listings":Listing.objects.filter(category=2)})
+
+
+class Cabinets(View):
+
+    def get(self,request):
+        return render(request, "listings/display.html",{"listings":Listing.objects.filter(category=3)})
+
+class Miscellaneous(View):
+
+    def get(self,request):
+        return render(request, "listings/display.html",{"listings":Listing.objects.filter(category=4)})
+
 
 class ListingUpdate(View):
 

@@ -31,27 +31,27 @@
         </script>
 
         <div class="grid">
-            {% for door in doors %}
+            {% for listing in listings %}
                 <div class="grid-item">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3>{{ door.title }}</h3>
+                            <h3>{{ listing.title }}</h3>
                         </div>
                         <div class="panel-body">
-                            <img class="img-responsive img-rounded" src="{% static 'media'%}/{{ door.image}}"/>
+                            <img class="img-responsive img-rounded" src="{% static 'media'%}/{{ listing.image}}"/>
                         </div>
                         <div class="panel-footer">
-                            <p>{{ door.description }}</p>
-                            <p>By: {{ door.author }}</p>
+                            <p>{{ listing.description }}</p>
+                            <p>By: {{ listing.author }}</p>
                             {% if not request.user.is_staff %}
-                                {% if door.consultation %}
+                                {% if listing.consultation %}
                                     <a href="#" class="btn btn-primary">Add to Cart</a>
                                 {% else %}
                                     <a href="#" class="btn btn-primary">Setup Consultation</a>
                                 {% endif %}
                             {% else %}
-                                <a href="{% url "ListingUpdate" pk=door.id %}" class="btn btn-primary">Update</a>
-                                <a href="{% url "ListingDelete" pk=door.id %}" class="btn btn-danger">Delete</a>
+                                <a href="{% url "ListingUpdate" pk=listing.id %}" class="btn btn-primary">Update</a>
+                                <a href="{% url "ListingDelete" pk=listing.id %}" class="btn btn-danger">Delete</a>
                             {% endif %}
                         </div>
                     </div>
