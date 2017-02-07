@@ -77,9 +77,9 @@
                     <li><a class="btn" id="DashboardButton" href="{% url "Dashboard" %}">Dashboard</a> </li>
                     {% endif %}
                     <li><a class="btn" href="{% url "DoorsView" %}" id="DoorButton">Doors</a></li>
-                    <li><a class="btn" id="TransomButton">Transoms</a></li>
-                    <li><a class="btn" id="CabinetButton">Cabinets</a></li>
-                    <li><a class="btn" id="MiscellaneousButton">Miscellaneous</a></li>
+                    <li><a class="btn" href="{% url "TransomsView" %}" id="TransomButton">Transoms</a></li>
+                    <li><a class="btn" href="{% url "CabinetsView" %}" id="CabinetButton">Cabinets</a></li>
+                    <li><a class="btn" href="{% url "MiscellaneousView" %}" id="MiscellaneousButton">Miscellaneous</a></li>
                     <li><a class="btn" id="ContactButton" href="{% url 'Contact' %}">Contact</a> </li>
                 </ul>
               {% if not request.user.is_anonymous %}

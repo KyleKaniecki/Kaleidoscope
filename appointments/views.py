@@ -9,6 +9,8 @@ from .forms import ApptUpdateForm
 
 from django.contrib.auth.models import User
 
+from notifications.signals import notify
+
 # Create your views here.
 
 class ApptDeleteView(DeleteView):
@@ -22,6 +24,12 @@ class ApptDeleteView(DeleteView):
             for nf in user.notifications.unread():
                 if nf.target == self.get_object():
                     nf.mark_as_read()
+
+        notify.send(request.user,
+                    actor=(self.model.admin.user.first_name + " " + self.model.admin.user.last_name),
+                    recipient=self.model.client.user,
+                    verb=u"has deleted the appointment on " + self.model.start.month + "/" + self.model.start.day,
+                    target=self.model)
         return super(ApptDeleteView, self).post(request)
 
 
